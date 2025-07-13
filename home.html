@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Bahasa Arab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #4a5568;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .page {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #4a5568;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+
+        .lesson-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lesson-item {
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-item:hover {
+            background: #f7fafc;
+            border-color: #667eea;
+        }
+
+        .lesson-item.completed {
+            background: #c6f6d5;
+            border-color: #38a169;
+        }
+
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .lesson-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .lesson-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .lesson-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .lesson-navigation button {
+            flex: 1;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .alert-success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #38a169;
+        }
+
+        .alert-error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #e53e3e;
+        }
+
+        .arabic-text {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.5rem;
+            text-align: right;
+            direction: rtl;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+
+        .logout-btn {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background: #c53030;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🕌 Akademi Bahasa Arab</div>
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="showPage('home')" id="homeBtn">Utama</button>
+                <button class="btn btn-secondary" onclick="showPage('login')" id="loginBtn">Log Masuk</button>
+                <button class="btn btn-secondary" onclick="showPage('register')" id="registerBtn">Daftar</button>
+                <button class="btn btn-primary" onclick="showPage('dashboard')" id="dashboardBtn" style="display: none;">Dashboard</button>
+                <button class="btn btn-primary" onclick="showPage('profile')" id="profileBtn" style="display: none;">Profil</button>
+                <button class="btn logout-btn" onclick="logout()" id="logoutBtn" style="display: none;">Log Keluar</button>
+            </div>
+        </div>
+
+        <!-- Halaman Utama -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1>Selamat Datang ke Dunia Bahasa Arab</h1>
+                <p>Belajar bahasa Arab dengan mudah dan menyeronokkan!</p>
+                <div class="arabic-text">
+                    أهلاً وسهلاً - مرحباً بكم في تعلم اللغة العربية
+                </div>
+                <button class="btn btn-primary" onclick="showPage('register')">Mula Belajar Sekarang</button>
+            </div>
+        </div>
+
+        <!-- Halaman Daftar -->
+        <div id="register" class="page">
+            <div class="form-container">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Daftar Akaun Baru</h2>
+                <div id="registerAlert"></div>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="regUsername">Nama Pengguna:</label>
+                        <input type="text" id="regUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail">Emel:</label>
+                        <input type="email" id="regEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Kata Laluan:</label>
+                        <input type="password" id="regPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regConfirmPassword">Sahkan Kata Laluan:</label>
+                        <input type="password" id="regConfirmPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regFullName">Nama Penuh:</label>
+                        <input type="text" id="regFullName" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Daftar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Halaman Log Masuk -->
+        <div id="login" class="page">
+            <div class="form-container">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Log Masuk</h2>
+                <div id="loginAlert"></div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginUsername">Nama Pengguna:</label>
+                        <input type="text" id="loginUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Kata Laluan:</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Log Masuk</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="page">
+            <h2>Dashboard Pembelajaran</h2>
+            <div class="dashboard">
+                <div class="card">
+                    <h3>Kemajuan Pembelajaran</h3>
+                    <p>Anda telah menyelesaikan 3 daripada 10 pelajaran</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%"></div>
+                    </div>
+                    <p>30% selesai</p>
+                </div>
+
+                <div class="card">
+                    <h3>Pelajaran Terbaru</h3>
+                    <ul class="lesson-list">
+                        <li class="lesson-item completed" onclick="openLesson(1)">Pelajaran 1: Huruf Arab Asas</li>
+                        <li class="lesson-item completed" onclick="openLesson(2)">Pelajaran 2: Perkataan Mudah</li>
+                        <li class="lesson-item completed" onclick="openLesson(3)">Pelajaran 3: Salam dan Sapaan</li>
+                        <li class="lesson-item" onclick="openLesson(4)">Pelajaran 4: Nombor dalam Arab</li>
+                        <li class="lesson-item" onclick="openLesson(5)">Pelajaran 5: Hari dalam Minggu</li>
+                        <li class="lesson-item" onclick="openLesson(6)">Pelajaran 6: Bulan dalam Tahun</li>
+                        <li class="lesson-item" onclick="openLesson(7)">Pelajaran 7: Warna dalam Arab</li>
+                        <li class="lesson-item" onclick="openLesson(6)">Pelajaran 6: Makanan dalam Arab</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Pencapaian</h3>
+                    <p>🏆 Pemula yang Bersemangat</p>
+                    <p>📚 Pelajar Konsisten</p>
+                    <p>✨ Pelajaran Pertama Selesai</p>
+                </div>
+
+                <div class="card">
+                    <h3>Latihan Harian</h3>
+                    <div class="arabic-text">
+                        السلام عليكم ورحمة الله وبركاته
+                    </div>
+                    <p><strong>Terjemahan:</strong> Salam sejahtera dan rahmat Allah serta keberkatan-Nya</p>
+                    <button class="btn btn-primary">Mula Latihan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profil -->
+        <div id="profile" class="page">
+            <h2>Profil Pengguna</h2>
+            <div class="profile-section">
+                <div class="profile-card">
+                    <h3>Maklumat Peribadi</h3>
+                    <p><strong>Nama:</strong> <span id="profileName">-</span></p>
+                    <p><strong>Emel:</strong> <span id="profileEmail">-</span></p>
+                    <p><strong>Nama Pengguna:</strong> <span id="profileUsername">-</span></p>
+                    <p><strong>Tarikh Daftar:</strong> <span id="profileJoinDate">-</span></p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Statistik Pembelajaran</h3>
+                    <p><strong>Pelajaran Selesai:</strong> 3/10</p>
+                    <p><strong>Masa Belajar:</strong> 2 jam 30 minit</p>
+                    <p><strong>Streak:</strong> 5 hari berturut-turut</p>
+                    <p><strong>Tahap:</strong> Pemula</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Halaman Pelajaran -->
+        <div id="lesson" class="page">
+            <div class="lesson-container">
+                <h2 id="lessonTitle">Pelajaran</h2>
+                <div class="lesson-content">
+                    <div id="lessonContent"></div>
+                    <div class="lesson-navigation">
+                        <button class="btn btn-secondary" onclick="showPage('dashboard')">Kembali ke Dashboard</button>
+                        <button class="btn btn-primary" onclick="completeLesson()">Selesai Pelajaran</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Pembolehubah global
+        let currentUser = null;
+        let users = [];
+        let lessons = {
+            1: {
+                title: "Huruf Arab Asas",
+                content: `
+                    <div class="arabic-text">ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي</div>
+                    <p>Ini adalah 28 huruf dalam abjad Arab. Mari belajar huruf demi huruf:</p>
+                    <ul>
+                        <li><strong>ا</strong> - Alif (A)</li>
+                        <li><strong>ب</strong> - Ba (B)</li>
+                        <li><strong>ت</strong> - Ta (T)</li>
+                        <li><strong>ث</strong> - Tsa (Th)</li>
+                        <li><strong>ج</strong> - Jim (J)</li>
+                    </ul>
+                    <p>Latihan: Cuba tulis huruf-huruf ini dalam buku anda.</p>
+                `
+            },
+            2: {
+                title: "Perkataan Mudah",
+                content: `
+                    <div class="arabic-text">كتاب - بيت - مدرسة - أستاذ - طالب</div>
+                    <p>Mari belajar perkataan asas dalam bahasa Arab:</p>
+                    <ul>
+                        <li><strong>كتاب</strong> - Kitab (Buku)</li>
+                        <li><strong>بيت</strong> - Bait (Rumah)</li>
+                        <li><strong>مدرسة</strong> - Madrasah (Sekolah)</li>
+                        <li><strong>أستاذ</strong> - Ustaz (Guru)</li>
+                        <li><strong>طالب</strong> - Talib (Pelajar)</li>
+                    </ul>
+                `
+            },
+            3: {
+                title: "Salam dan Sapaan",
+                content: `
+                    <div class="arabic-text">السلام عليكم - وعليكم السلام - أهلاً وسهلاً</div>
+                    <p>Sapaan dalam Islam:</p>
+                    <ul>
+                        <li><strong>السلام عليكم</strong> - Assalamualaikum (Salam sejahtera)</li>
+                        <li><strong>وعليكم السلام</strong> - Waalaikumussalam (Dan kepada anda salam)</li>
+                        <li><strong>أهلاً وسهلاً</strong> - Ahlan wa sahlan (Selamat datang)</li>
+                        <li><strong>مرحباً</strong> - Marhaban (Halo)</li>
+                    </ul>
+                `
+            },
+            4: {
+                title: "Nombor dalam Arab",
+                content: `
+                    <div class="arabic-text">واحد - اثنان - ثلاثة - أربعة - خمسة</div>
+                    <p>Nombor 1-10 dalam bahasa Arab:</p>
+                    <ul>
+                        <li><strong>واحد</strong> - Wahid (1)</li>
+                        <li><strong>اثنان</strong> - Ithnan (2)</li>
+                        <li><strong>ثلاثة</strong> - Thalathah (3)</li>
+                        <li><strong>أربعة</strong> - Arba'ah (4)</li>
+                        <li><strong>خمسة</strong> - Khamsah (5)</li>
+                    </ul>
+                `
+            },
+            5: {
+                title: "Hari dalam Minggu",
+                content: `
+                    <div class="arabic-text">الأحد - الاثنين - الثلاثاء - الأربعاء</div>
+                    <p>Hari dalam seminggu:</p>
+                    <ul>
+                        <li><strong>الأحد</strong> - Al-Ahad (Ahad)</li>
+                        <li><strong>الاثنين</strong> - Al-Ithnayn (Isnin)</li>
+                        <li><strong>الثلاثاء</strong> - Ath-Thulatha (Selasa)</li>
+                        <li><strong>الأربعاء</strong> - Al-Arbi'a (Rabu)</li>
+                        <li><strong>الخميس</strong> - Al-Khamis (Khamis)</li>
+                    </ul>
+                `
+            }
+                    
+        };
+
+        // Fungsi untuk load data dari memori
+        function loadUsers() {
+            // Untuk demo, kita guna data dalam memori
+            users = [
+                {
+                    username: 'admin',
+                    email: 'admin@test.com',
+                    password: 'admin123',
+                    fullName: 'Administrator',
+                    joinDate: new Date().toISOString()
+                }
+            ];
+        }
+
+        // Fungsi untuk simpan pengguna
+        function saveUser(user) {
+            users.push(user);
+        }
+
+        // Fungsi untuk cari pengguna
+        function findUser(username) {
+            return users.find(user => user.username === username);
+        }
+
+        // Fungsi untuk tukar halaman
+        function showPage(pageId) {
+            // Sembunyi semua halaman
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Tunjuk halaman yang dipilih
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navbar
+            updateNavbar();
+        }
+
+        // Fungsi untuk update navbar
+        function updateNavbar() {
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const dashboardBtn = document.getElementById('dashboardBtn');
+            const profileBtn = document.getElementById('profileBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (currentUser) {
+                // Pengguna sudah log masuk
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                dashboardBtn.style.display = 'inline-block';
+                profileBtn.style.display = 'inline-block';
+                logoutBtn.style.display = 'inline-block';
+            } else {
+                // Pengguna belum log masuk
+                loginBtn.style.display = 'inline-block';
+                registerBtn.style.display = 'inline-block';
+                dashboardBtn.style.display = 'none';
+                profileBtn.style.display = 'none';
+                logoutBtn.style.display = 'none';
+            }
+        }
+
+        // Fungsi untuk tunjuk alert
+        function showAlert(elementId, message, type) {
+            const alertElement = document.getElementById(elementId);
+            alertElement.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => {
+                alertElement.innerHTML = '';
+            }, 3000);
+        }
+
+        // Fungsi untuk update profil
+        function updateProfile() {
+            if (currentUser) {
+                document.getElementById('profileName').textContent = currentUser.fullName;
+                document.getElementById('profileEmail').textContent = currentUser.email;
+                document.getElementById('profileUsername').textContent = currentUser.username;
+                document.getElementById('profileJoinDate').textContent = new Date(currentUser.joinDate).toLocaleDateString('ms-MY');
+            }
+        }
+
+        // Event listener untuk form daftar
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+            const fullName = document.getElementById('regFullName').value;
+
+            // Validasi
+            if (password !== confirmPassword) {
+                showAlert('registerAlert', 'Kata laluan tidak sepadan!', 'error');
+                return;
+            }
+
+            if (findUser(username)) {
+                showAlert('registerAlert', 'Nama pengguna sudah wujud!', 'error');
+                return;
+            }
+
+            // Simpan pengguna baru
+            const newUser = {
+                username: username,
+                email: email,
+                password: password,
+                fullName: fullName,
+                joinDate: new Date().toISOString()
+            };
+
+            saveUser(newUser);
+            showAlert('registerAlert', 'Akaun berjaya didaftarkan! Sila log masuk.', 'success');
+            
+            // Reset form
+            document.getElementById('registerForm').reset();
+            
+            // Tukar ke halaman log masuk selepas 2 saat
+            setTimeout(() => {
+                showPage('login');
+            }, 2000);
+        });
+
+        // Event listener untuk form log masuk
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const user = findUser(username);
+            
+            if (user && user.password === password) {
+                currentUser = user;
+                showAlert('loginAlert', 'Log masuk berjaya!', 'success');
+                
+                // Tukar ke dashboard selepas 1 saat
+                setTimeout(() => {
+                    showPage('dashboard');
+                    updateProfile();
+                }, 1000);
+            } else {
+                showAlert('loginAlert', 'Nama pengguna atau kata laluan salah!', 'error');
+            }
+        });
+
+        // Fungsi untuk buka pelajaran
+        function openLesson(lessonId) {
+            const lesson = lessons[lessonId];
+            if (lesson) {
+                document.getElementById('lessonTitle').textContent = lesson.title;
+                document.getElementById('lessonContent').innerHTML = lesson.content;
+                showPage('lesson');
+            }
+        }
+
+        // Fungsi untuk siapkan pelajaran
+        function completeLesson() {
+            showAlert('dashboard', 'Tahniah! Anda telah menyelesaikan pelajaran ini.', 'success');
+            showPage('dashboard');
+        }
+
+        // Fungsi untuk log keluar
+        function logout() {
+            currentUser = null;
+            showPage('home');
+            document.getElementById('loginForm').reset();
+            updateNavbar();
+        }
+
+        // Inisialisasi
+        window.onload = function() {
+            loadUsers();
+            updateNavbar();
+        };
+    </script>
+</body>
+</html>
